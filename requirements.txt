@@ -1,10 +1,8 @@
-pandas
-pyarrow
-openpyxl
-statsmodels
-lightgbm
+# What the deployed Streamlit app needs (it only reads the small tables in app_data/)
 streamlit
+pandas
+numpy
+pyarrow
 plotly
-pytest
-scikit-learn
+statsmodels
 anthropic

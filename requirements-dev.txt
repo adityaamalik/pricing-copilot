@@ -1,0 +1,6 @@
+# Everything you need to rebuild the data and run the tests locally
+-r requirements.txt
+openpyxl
+lightgbm
+scikit-learn
+pytest
