@@ -177,6 +177,31 @@ TEXT = {
             "60% of each product's median price. Thousands of products are tested, so some 'significant' results "
             "happen by chance. Expected changes assume the elasticity stays constant."
         ),
+
+        # Tab 5: Management summary
+        "ms_question": "What should we decide this week?",
+        "ms_intro": "One-page summary written by an LLM from the KPI flags, customer segments, forecast and price recommendations.",
+        "ms_button": "Generate summary",
+        "ms_refresh": "Ask the model again (ignore saved answer)",
+        "ms_no_summary": "No saved summary yet. Press the button to generate one.",
+        "ms_working": "Writing the summary...",
+        "ms_en": "English",
+        "ms_de": "Deutsch",
+        "ms_src_llm": "Written by {model} just now.",
+        "ms_src_cache": "Written by {model} (saved answer, no waiting).",
+        "ms_src_rules": "Rule-based text (no LLM key available or the request failed).",
+        "ms_error": "The model request failed, showing the rule-based text instead: {error}",
+        "ms_prompt_title": "How is the AI used and controlled? (prompt and data)",
+        "ms_control": (
+            "- The model sees **only** the JSON below, never the raw data.\n"
+            "- The structure is fixed: 3 findings, 3 actions, risks.\n"
+            "- The prompt forbids invented numbers and requires the assumptions to be stated.\n"
+            "- Answers are saved, so the same data always shows the same text and the demo never waits.\n"
+            "- Without an API key the app shows a plain rule-based text instead.\n"
+            "- A person must still read the summary before acting on it."
+        ),
+        "ms_system": "System prompt",
+        "ms_user": "User prompt (with the data inserted)",
     },
     "de": {
         # General
@@ -350,5 +375,30 @@ TEXT = {
             "60% des Median-Preises jedes Produkts. Es werden tausende Produkte getestet, daher sind einige 'signifikante' Ergebnisse "
             "Zufall. Die erwarteten Änderungen setzen eine konstante Elastizität voraus."
         ),
+
+        # Tab 5: Management summary
+        "ms_question": "Was sollten wir diese Woche entscheiden?",
+        "ms_intro": "Einseitige Zusammenfassung, von einem LLM aus KPI-Flags, Kundensegmenten, Prognose und Preisempfehlungen geschrieben.",
+        "ms_button": "Zusammenfassung erstellen",
+        "ms_refresh": "Modell erneut fragen (gespeicherte Antwort ignorieren)",
+        "ms_no_summary": "Noch keine gespeicherte Zusammenfassung. Zum Erstellen den Button drücken.",
+        "ms_working": "Die Zusammenfassung wird geschrieben...",
+        "ms_en": "English",
+        "ms_de": "Deutsch",
+        "ms_src_llm": "Soeben von {model} geschrieben.",
+        "ms_src_cache": "Von {model} geschrieben (gespeicherte Antwort, keine Wartezeit).",
+        "ms_src_rules": "Regelbasierter Text (kein LLM-Schlüssel verfügbar oder die Anfrage ist fehlgeschlagen).",
+        "ms_error": "Die Modellanfrage ist fehlgeschlagen, stattdessen wird der regelbasierte Text gezeigt: {error}",
+        "ms_prompt_title": "Wie wird die KI eingesetzt und kontrolliert? (Prompt und Daten)",
+        "ms_control": (
+            "- Das Modell sieht **nur** das JSON unten, nie die Rohdaten.\n"
+            "- Die Struktur ist fest vorgegeben: 3 Erkenntnisse, 3 Maßnahmen, Risiken.\n"
+            "- Der Prompt verbietet erfundene Zahlen und verlangt, dass die Annahmen genannt werden.\n"
+            "- Antworten werden gespeichert: gleiche Daten zeigen immer denselben Text, und die Demo wartet nie.\n"
+            "- Ohne API-Schlüssel zeigt die App stattdessen einen einfachen regelbasierten Text.\n"
+            "- Ein Mensch muss die Zusammenfassung lesen, bevor gehandelt wird."
+        ),
+        "ms_system": "System-Prompt",
+        "ms_user": "User-Prompt (mit eingefügten Daten)",
     },
 }

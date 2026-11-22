@@ -8,6 +8,7 @@ import tab_forecast
 import tab_kpi
 import tab_pricing
 import tab_segments
+import tab_summary
 from common import t
 
 st.set_page_config(page_title="Pricing Copilot", layout="wide")
@@ -30,4 +31,4 @@ with tab3:
 with tab4:
     tab_pricing.show()
 with tab5:
-    st.info(t("coming_soon"))
+    tab_summary.show()
