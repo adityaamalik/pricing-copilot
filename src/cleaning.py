@@ -20,3 +20,14 @@ def clean_sales(df):
     df = df.drop_duplicates()                    # the dataset has some exact duplicate rows
     df["revenue"] = df["quantity"] * df["price"]
     return df.reset_index(drop=True)
+
+def clean_returns(df):
+    """Keep only real product returns (cancelled invoices), for the return rate KPI."""
+    is_cancellation = df["invoice"].str.startswith("C")
+    is_negative = df["quantity"] < 0
+    is_priced = df["price"] > 0
+    is_fee = df["stock_code"].str.upper().isin(NON_PRODUCT_CODES)
+
+    df = df[is_cancellation & is_negative & is_priced & ~is_fee].copy()
+    df["returns_revenue"] = -df["quantity"] * df["price"]   # make it a positive amount
+    return df.reset_index(drop=True)
