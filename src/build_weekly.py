@@ -9,7 +9,7 @@ from src.kpis import build_weekly_table
 
 RAW = "data/processed/transactions_raw.parquet"
 SALES = "data/processed/sales_clean.parquet"
-OUT = "data/processed/weekly_kpis.parquet"
+OUT = "app_data/weekly_kpis.parquet"
 
 raw = pd.read_parquet(RAW)
 returns = clean_returns(raw)

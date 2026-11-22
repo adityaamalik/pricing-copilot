@@ -91,21 +91,45 @@ def get_kpis(weekly, country="All", group="All"):
     return add_ratios(kpi).reset_index()
 
 
-def suggest_action(price_change, units_change, metric, is_high):
+# Action texts in both languages. {p} = price change, {u} = units change.
+ACTIONS = {
+    "en": {
+        "price_up_units_down": "Price {p} but units {u}: review prices on the top items.",
+        "discount_no_lift": "Price {p} but units only {u}: the discount is not lifting volume, review it.",
+        "margin_low": "Margin below normal: check discounts and low-margin items.",
+        "demand_strong": "Units {u} at a flat price: demand is strong, test a small price increase and check stock.",
+        "demand_drop": "Units {u} without a price change: check promotions, stock-outs or seasonality.",
+        "unusual": "Unusual week: check for one-off large orders or data problems.",
+    },
+    "de": {
+        "price_up_units_down": "Preis {p}, aber Absatz {u}: Preise der Top-Artikel prüfen.",
+        "discount_no_lift": "Preis {p}, Absatz nur {u}: Der Rabatt steigert die Menge nicht, bitte prüfen.",
+        "margin_low": "Marge unter dem Normalwert: Rabatte und margenschwache Artikel prüfen.",
+        "demand_strong": "Absatz {u} bei gleichem Preis: Die Nachfrage ist stark, kleine Preiserhöhung testen und Lagerbestand prüfen.",
+        "demand_drop": "Absatz {u} ohne Preisänderung: Aktionen, Lieferengpässe oder Saisoneffekte prüfen.",
+        "unusual": "Ungewöhnliche Woche: Einmalige Großaufträge oder Datenprobleme prüfen.",
+    },
+}
+
+
+def suggest_action(price_change, units_change, metric, is_high, lang="en"):
     """Rule-based text. Changes are fractions vs. last week (0.10 = +10%)."""
     p = f"{price_change:+.0%}"
     u = f"{units_change:+.0%}"
+
     if price_change > 0.05 and units_change < -0.15:
-        return f"Price {p} but units {u}: review prices on the top items."
-    if price_change < -0.05 and units_change < 0.05:
-        return f"Price {p} but units only {u}: discount is not lifting volume, review it."
-    if metric == "margin_pct" and not is_high:
-        return "Margin below normal: check discounts and low-margin items."
-    if units_change > 0.30 and price_change <= 0.02:
-        return f"Units {u} at a flat price: demand is strong, test a small price increase and check stock."
-    if units_change < -0.30 and abs(price_change) <= 0.05:
-        return f"Units {u} without a price change: check promotions, stock-outs or seasonality."
-    return "Unusual week: check for one-off large orders or data problems."
+        rule = "price_up_units_down"
+    elif price_change < -0.05 and units_change < 0.05:
+        rule = "discount_no_lift"
+    elif metric == "margin_pct" and not is_high:
+        rule = "margin_low"
+    elif units_change > 0.30 and price_change <= 0.02:
+        rule = "demand_strong"
+    elif units_change < -0.30 and abs(price_change) <= 0.05:
+        rule = "demand_drop"
+    else:
+        rule = "unusual"
+    return ACTIONS[lang][rule].format(p=p, u=u)
 
 
 def pct_change(series):
@@ -113,7 +137,7 @@ def pct_change(series):
     return series.pct_change().replace([np.inf, -np.inf], np.nan)
 
 
-def find_flags(kpi, window=8, n_std=2.0, wow_limit=0.50):
+def find_flags(kpi, window=8, n_std=2.0, wow_limit=0.50, lang="en"):
     """Flag a week if a KPI is outside its rolling mean +/- n_std, or moved more than wow_limit."""
     metrics = ["revenue", "units", "avg_price", "margin_pct"]
     price_change = pct_change(kpi["avg_price"])
@@ -142,7 +166,7 @@ def find_flags(kpi, window=8, n_std=2.0, wow_limit=0.50):
                 "action": suggest_action(
                     price_change[i] if pd.notna(price_change[i]) else 0,
                     units_change[i] if pd.notna(units_change[i]) else 0,
-                    metric, s[i] > mean[i]),
+                    metric, s[i] > mean[i], lang),
             })
 
     columns = ["week", "metric", "value", "expected", "change_vs_last_week", "action"]
