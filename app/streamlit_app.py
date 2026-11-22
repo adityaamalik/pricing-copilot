@@ -6,6 +6,7 @@ import streamlit as st
 
 import tab_forecast
 import tab_kpi
+import tab_pricing
 import tab_segments
 from common import t
 
@@ -27,6 +28,6 @@ with tab2:
 with tab3:
     tab_forecast.show()
 with tab4:
-    st.info(t("coming_soon"))
+    tab_pricing.show()
 with tab5:
     st.info(t("coming_soon"))

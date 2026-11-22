@@ -118,6 +118,65 @@ TEXT = {
             "Weekly sales per product are lumpy (wholesale orders), so errors of 30-80% are normal. "
             "With only two years of data, the yearly pattern is learned from a single previous year."
         ),
+
+        # Tab 4: Pricing engine
+        "pe_question": "Which prices should change?",
+        "pe_max_change": "Max price change per step (%)",
+        "pe_min_margin": "Minimum margin when cutting prices (%)",
+        "pe_alpha": "Significance level (p-value below)",
+        "pe_decision": "Show",
+        "pe_search": "Search product",
+        "pe_products": "Products analysed",
+        "pe_raise": "Price raises",
+        "pe_lower": "Price cuts",
+        "pe_revenue": "Expected revenue change / week",
+        "pe_margin": "Expected margin change / week",
+        "pe_table_title": "Recommendations (sorted by expected margin change)",
+        "pe_col_product": "Product",
+        "pe_col_current": "Current price",
+        "pe_col_new": "Recommended price",
+        "pe_col_change": "Price change (%)",
+        "pe_col_elasticity": "Elasticity",
+        "pe_col_ci": "95% confidence interval",
+        "pe_col_p": "p-value",
+        "pe_col_units": "Units change (%)",
+        "pe_col_revenue": "Revenue change / week (GBP)",
+        "pe_col_margin": "Margin change / week (GBP)",
+        "pe_col_decision": "Decision",
+        "pe_col_reason": "Reason",
+        "dec_raise": "Raise",
+        "dec_lower": "Lower",
+        "dec_keep": "Keep",
+        "reason_ok": "Margin-optimal price found",
+        "reason_max_change": "Limited by the max-change guardrail",
+        "reason_not_significant": "No change: elasticity not significant",
+        "reason_elasticity_out_of_range": "No change: elasticity not believable",
+        "reason_no_better_price": "No change: current price is already best",
+        "pe_detail_title": "Expected weekly margin by price",
+        "pe_pick_product": "Product to inspect",
+        "pe_curve_x": "Price (GBP)",
+        "pe_curve_y": "Expected margin per week (GBP)",
+        "pe_current": "Current",
+        "pe_recommended": "Recommended",
+        "pe_how_title": "How does the pricing engine work?",
+        "pe_how": (
+            "1. **Elasticity**: for each product we fit  log(units) = a + b · log(price) + c · log(store demand)  "
+            "on weekly data. **b** is the price elasticity: +1% price changes units by b%. "
+            "The store-demand term separates price effects from seasonality.\n"
+            "2. **Which products**: at least 30 weeks with sales, the weekly price varies by at least 5% "
+            "(and has 4+ different values), and the product sold in the last quarter.\n"
+            "3. **Price used**: the median price of normal order lines (up to 100 units). "
+            "Bulk lines are excluded because they carry volume discounts.\n"
+            "4. **Recommender**: test prices from -max to +max in 1% steps, expected units = units now × (price ratio)^b, "
+            "choose the highest expected margin.\n"
+            "5. **Guardrails**: max change per step; no price cut below the minimum margin; "
+            "no change when the elasticity is not significant or not believable (above 0 or below -5)."
+        ),
+        "pe_caption": (
+            "Estimates come from historical data and are indicative, not causal. Margin uses an ASSUMED unit cost of "
+            "60% of each product's median price. Thousands of products are tested, so some 'significant' results "
+            "happen by chance. Expected changes assume the elasticity stays constant."
+        ),
     },
     "de": {
         # General
@@ -231,6 +290,65 @@ TEXT = {
             "MAPE = Durchschnitt von |Ist - Prognose| / Ist, nur für Wochen mit Verkäufen. "
             "Der Wochenabsatz je Produkt schwankt stark (Großhandelsbestellungen), daher sind Fehler von 30-80% normal. "
             "Mit nur zwei Jahren Daten wird das Jahresmuster aus nur einem Vorjahr gelernt."
+        ),
+
+        # Tab 4: Pricing engine
+        "pe_question": "Welche Preise sollten sich ändern?",
+        "pe_max_change": "Max. Preisänderung pro Schritt (%)",
+        "pe_min_margin": "Mindestmarge bei Preissenkungen (%)",
+        "pe_alpha": "Signifikanzniveau (p-Wert unter)",
+        "pe_decision": "Anzeigen",
+        "pe_search": "Produkt suchen",
+        "pe_products": "Analysierte Produkte",
+        "pe_raise": "Preiserhöhungen",
+        "pe_lower": "Preissenkungen",
+        "pe_revenue": "Erwartete Umsatzänderung / Woche",
+        "pe_margin": "Erwartete Margenänderung / Woche",
+        "pe_table_title": "Empfehlungen (sortiert nach erwarteter Margenänderung)",
+        "pe_col_product": "Produkt",
+        "pe_col_current": "Aktueller Preis",
+        "pe_col_new": "Empfohlener Preis",
+        "pe_col_change": "Preisänderung (%)",
+        "pe_col_elasticity": "Elastizität",
+        "pe_col_ci": "95%-Konfidenzintervall",
+        "pe_col_p": "p-Wert",
+        "pe_col_units": "Absatzänderung (%)",
+        "pe_col_revenue": "Umsatzänderung / Woche (GBP)",
+        "pe_col_margin": "Margenänderung / Woche (GBP)",
+        "pe_col_decision": "Entscheidung",
+        "pe_col_reason": "Grund",
+        "dec_raise": "Erhöhen",
+        "dec_lower": "Senken",
+        "dec_keep": "Beibehalten",
+        "reason_ok": "Margenoptimaler Preis gefunden",
+        "reason_max_change": "Durch die maximale Schrittweite begrenzt",
+        "reason_not_significant": "Keine Änderung: Elastizität nicht signifikant",
+        "reason_elasticity_out_of_range": "Keine Änderung: Elastizität nicht plausibel",
+        "reason_no_better_price": "Keine Änderung: aktueller Preis ist bereits optimal",
+        "pe_detail_title": "Erwartete Wochenmarge je Preis",
+        "pe_pick_product": "Produkt prüfen",
+        "pe_curve_x": "Preis (GBP)",
+        "pe_curve_y": "Erwartete Marge pro Woche (GBP)",
+        "pe_current": "Aktuell",
+        "pe_recommended": "Empfohlen",
+        "pe_how_title": "Wie funktioniert die Preis-Engine?",
+        "pe_how": (
+            "1. **Elastizität**: Für jedes Produkt schätzen wir  log(Absatz) = a + b · log(Preis) + c · log(Gesamtnachfrage)  "
+            "mit Wochendaten. **b** ist die Preiselastizität: +1% Preis verändert den Absatz um b%. "
+            "Der Term für die Gesamtnachfrage trennt Preiseffekte von Saisoneffekten.\n"
+            "2. **Welche Produkte**: mindestens 30 Wochen mit Verkäufen, der Wochenpreis schwankt um mindestens 5% "
+            "(mit mindestens 4 verschiedenen Werten), und das Produkt wurde im letzten Quartal verkauft.\n"
+            "3. **Verwendeter Preis**: der Median-Preis normaler Bestellpositionen (bis 100 Stück). "
+            "Großmengen werden ausgeschlossen, weil sie Mengenrabatte enthalten.\n"
+            "4. **Empfehlung**: Wir testen Preise von -max bis +max in 1%-Schritten, erwarteter Absatz = heutiger Absatz × (Preisverhältnis)^b, "
+            "und wählen die höchste erwartete Marge.\n"
+            "5. **Leitplanken**: maximale Änderung pro Schritt; keine Preissenkung unter die Mindestmarge; "
+            "keine Änderung, wenn die Elastizität nicht signifikant oder nicht plausibel ist (über 0 oder unter -5)."
+        ),
+        "pe_caption": (
+            "Die Schätzungen stammen aus historischen Daten und sind indikativ, nicht kausal. Die Marge nutzt ANGENOMMENE Stückkosten von "
+            "60% des Median-Preises jedes Produkts. Es werden tausende Produkte getestet, daher sind einige 'signifikante' Ergebnisse "
+            "Zufall. Die erwarteten Änderungen setzen eine konstante Elastizität voraus."
         ),
     },
 }
