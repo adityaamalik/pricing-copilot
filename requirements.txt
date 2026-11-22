@@ -1,0 +1,8 @@
+pandas
+pyarrow
+openpyxl
+statsmodels
+lightgbm
+streamlit
+plotly
+pytest

@@ -1,0 +1,17 @@
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Mac
+.DS_Store
+
+# Data (too big for git, can be downloaded again)
+data/raw/
+data/processed/
+
+# Secrets and private notes
+.streamlit/secrets.toml
+.env
+private/
