@@ -87,6 +87,37 @@ TEXT = {
             "Customers without a customer ID are not included. "
             "This describes past prices paid, it is not a measured price elasticity."
         ),
+
+        # Tab 3: Demand forecast
+        "fc_question": "What will we sell next?",
+        "fc_product": "Product",
+        "fc_chart_title": "Weekly units: history, backtest and 8-week forecast",
+        "fc_history": "Actual units",
+        "fc_naive_bt": "Baseline (backtest)",
+        "fc_lgbm_bt": "LightGBM (backtest)",
+        "fc_naive_fc": "Baseline (forecast)",
+        "fc_lgbm_fc": "LightGBM (forecast)",
+        "fc_errors_title": "Backtest on the last 12 weeks: error (MAPE, lower is better)",
+        "fc_col_product": "Product",
+        "fc_col_naive": "Baseline MAPE (%)",
+        "fc_col_lgbm": "LightGBM MAPE (%)",
+        "fc_average": "Average",
+        "fc_better": "LightGBM beats the baseline for {n} of {total} products.",
+        "fc_avg_text": "Average error: baseline {naive:.1f}%, LightGBM {lgbm:.1f}%.",
+        "fc_how_title": "How does the forecast work?",
+        "fc_how": (
+            "- **Backtest**: we hide the last 12 weeks, forecast them, and compare with what really sold.\n"
+            "- **Baseline (seasonal naive)**: forecast = the same week one year earlier.\n"
+            "- **LightGBM**: one model for all 10 products. It sees the recent level, the same week "
+            "last year, the week of the year and how many weeks ahead it predicts.\n"
+            "- **Products**: the 10 best-selling products (by revenue) that sold in at least 60 weeks "
+            "and are not dominated by a single huge order."
+        ),
+        "fc_caption": (
+            "MAPE = average of |actual - forecast| / actual, only for weeks with sales. "
+            "Weekly sales per product are lumpy (wholesale orders), so errors of 30-80% are normal. "
+            "With only two years of data, the yearly pattern is learned from a single previous year."
+        ),
     },
     "de": {
         # General
@@ -169,6 +200,37 @@ TEXT = {
             "Rabatt = wie weit unter dem üblichen (Median-)Preis eines Produkts ein Kunde bezahlt hat. "
             "Kunden ohne Kunden-ID sind nicht enthalten. "
             "Das beschreibt bisher gezahlte Preise, es ist keine gemessene Preiselastizität."
+        ),
+
+        # Tab 3: Demand forecast
+        "fc_question": "Was werden wir als Nächstes verkaufen?",
+        "fc_product": "Produkt",
+        "fc_chart_title": "Wöchentlicher Absatz: Verlauf, Backtest und 8-Wochen-Prognose",
+        "fc_history": "Tatsächlicher Absatz",
+        "fc_naive_bt": "Baseline (Backtest)",
+        "fc_lgbm_bt": "LightGBM (Backtest)",
+        "fc_naive_fc": "Baseline (Prognose)",
+        "fc_lgbm_fc": "LightGBM (Prognose)",
+        "fc_errors_title": "Backtest der letzten 12 Wochen: Fehler (MAPE, niedriger ist besser)",
+        "fc_col_product": "Produkt",
+        "fc_col_naive": "Baseline MAPE (%)",
+        "fc_col_lgbm": "LightGBM MAPE (%)",
+        "fc_average": "Durchschnitt",
+        "fc_better": "LightGBM schlägt die Baseline bei {n} von {total} Produkten.",
+        "fc_avg_text": "Durchschnittlicher Fehler: Baseline {naive:.1f}%, LightGBM {lgbm:.1f}%.",
+        "fc_how_title": "Wie funktioniert die Prognose?",
+        "fc_how": (
+            "- **Backtest**: Wir blenden die letzten 12 Wochen aus, prognostizieren sie und vergleichen mit dem echten Absatz.\n"
+            "- **Baseline (saisonal naiv)**: Prognose = dieselbe Woche ein Jahr zuvor.\n"
+            "- **LightGBM**: ein Modell für alle 10 Produkte. Es kennt das aktuelle Niveau, dieselbe Woche "
+            "im Vorjahr, die Kalenderwoche und wie viele Wochen es vorausschaut.\n"
+            "- **Produkte**: die 10 umsatzstärksten Produkte, die in mindestens 60 Wochen verkauft wurden "
+            "und nicht von einer einzigen Riesenbestellung dominiert werden."
+        ),
+        "fc_caption": (
+            "MAPE = Durchschnitt von |Ist - Prognose| / Ist, nur für Wochen mit Verkäufen. "
+            "Der Wochenabsatz je Produkt schwankt stark (Großhandelsbestellungen), daher sind Fehler von 30-80% normal. "
+            "Mit nur zwei Jahren Daten wird das Jahresmuster aus nur einem Vorjahr gelernt."
         ),
     },
 }

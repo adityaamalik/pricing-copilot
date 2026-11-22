@@ -4,6 +4,7 @@
 """
 import streamlit as st
 
+import tab_forecast
 import tab_kpi
 import tab_segments
 from common import t
@@ -24,7 +25,7 @@ with tab1:
 with tab2:
     tab_segments.show()
 with tab3:
-    st.info(t("coming_soon"))
+    tab_forecast.show()
 with tab4:
     st.info(t("coming_soon"))
 with tab5:
